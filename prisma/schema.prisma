@@ -11,10 +11,10 @@ datasource db {
 }
 
 model User {
-  id           String         @id @default(uuid())
-  email        String         @unique
-  password     String
-  RefreshToken RefreshToken[]
+  id            String         @id @default(uuid())
+  email         String         @unique
+  password      String
+  refreshTokens RefreshToken[]
 
   @@map("users")
 }
