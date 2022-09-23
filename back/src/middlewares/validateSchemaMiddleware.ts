@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 
-import { CustomError } from '../middlewares/errorHandlerMiddleware';
+import { CustomError } from './errorHandlerMiddleware';
 
 import schemas from '../schemas/schemas';
 

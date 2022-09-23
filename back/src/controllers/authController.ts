@@ -2,7 +2,6 @@ import { Request, Response } from 'express';
 
 import * as userService from '../services/userService';
 import * as refreshTokenService from '../services/refreshTokenService';
-import { CustomError } from '../middlewares/errorHandlerMiddleware';
 
 export async function register(req: Request, res: Response) {
     const { email, password } = req.body;
@@ -21,16 +20,7 @@ export async function login(req: Request, res: Response) {
 }
 
 export async function refresh(req: Request, res: Response) {
-    const { authorization } = req.headers;
-
-    if (!authorization?.startsWith('Bearer ')) {
-        throw CustomError('error_unauthorized', 'Invalid request header');
-    }
-
-    const oldRefreshToken = authorization.replace('Bearer ', '');
-    if (!oldRefreshToken) {
-        throw CustomError('error_unauthorized', 'Invalid request header');
-    }
+    const { refreshToken: oldRefreshToken } = req.body;
 
     const { accessToken, refreshToken } = await refreshTokenService.refreshSession(oldRefreshToken);
 
@@ -38,18 +28,9 @@ export async function refresh(req: Request, res: Response) {
 }
 
 export async function logout(req: Request, res: Response) {
-    const { authorization } = req.headers;
+    const { refreshToken } = req.body;
 
-    if (!authorization?.startsWith('Bearer ')) {
-        throw CustomError('error_unauthorized', 'Invalid request header');
-    }
-
-    const oldRefreshToken = authorization.replace('Bearer ', '');
-    if (!oldRefreshToken) {
-        throw CustomError('error_unauthorized', 'Invalid request header');
-    }
-
-    await refreshTokenService.finishSession(oldRefreshToken);
+    await refreshTokenService.finishSession(refreshToken);
 
     res.status(204).send();
 }

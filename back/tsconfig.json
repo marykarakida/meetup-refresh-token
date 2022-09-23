@@ -2,7 +2,7 @@
     "compilerOptions": {
         "target": "es2016",
         "module": "commonjs",
-        "rootDir": "back/src",
+        "rootDir": "./src",
         "outDir": "./dist",
         "esModuleInterop": true,
         "forceConsistentCasingInFileNames": true,
@@ -10,6 +10,6 @@
         "strict": true,
         "resolveJsonModule": true
     },
-    "include": ["back/src"],
-    "exclude": ["back/node_modules", "dist"]
+    "include": ["src"],
+    "exclude": ["node_modules", "dist"]
 }
