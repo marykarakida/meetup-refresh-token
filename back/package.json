@@ -5,6 +5,7 @@
     "main": "src/server.ts",
     "scripts": {
         "dev": "ts-node-dev --respawn --transpile-only --exit-child --ignore-watch node_modules ./src/server.ts",
+        "build": "tsc && npx prisma generate && npx prisma migrate deploy",
         "start": "node dist/server.js"
     },
     "keywords": [],
